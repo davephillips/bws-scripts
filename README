@@ -1,0 +1,29 @@
+This project directory contains two directories for some scripts written in Javascript for the Bitwig controller API. 
+
+The Akai directory contains a script for the Akai LPK25 MIDI keyboard controller. The script is very basic, only sending MIDI note events. Please feel free to expand or revise it !
+
+The Generic directory includes two scripts, one for the MidiSport 2x2 hardware MIDI interface and one for the ALSA virtual MIDI device.
+
+The MidiSport script is also very basic. It exposes the device's ports to Bitwig with their names, so connection is straightforward.
+
+The ALSA virtual MIDI script is used in conjunction with ALSA's snd-virmidi module and Bitwig's Hardware Instrument router device. 
+
+If the virtual MIDI device is not already loaded, install it with this command (as root user) :
+
+	modprobe snd-virmidi midi_devs=1
+
+This will create a single virtual MIDI port with 16 channels.
+
+Bitwig's Hardware Instrument router's output list will display sixteen blank entries. Select the first blank entry and set the router's Audio Input device to Stereo.
+
+Use your MIDI connections software to route the VirMidi port to your favorite synthesizer/sampler/processor/host/whatever. Be sure to connect the target's audio output to a valid audio input port, i.e. Bitwig, your system audio, or any other available port. 
+
+Notes:
+
+For some reason the a2jmidi daemon is incompatible with the VirMidi script. Use JACK's raw or seq MIDI driver options if you need a JackMIDI connection.
+
+This script has been rendered somewhat redundant thanks to falkTX's Jackass VST plugin. I advise using the my script only if the plugin doesn't work for your purposes.
+
+Dave Phillips
+6 June 2014
+
